@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Busca de Contatos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Busca de Contatos</h1>
+    <input type="text" id="searchInput" placeholder="Digite o nome do contato..." />
+    <ul id="resultsList"></ul>
+    <div class="no-results" id="noResults" style="display:none;">Nenhum contato encontrado.</div>
+  </div>
+
+  <script>
+    // Sample contacts data
+    const contacts = [
+      { name: "Ana Silva", phone: "(11) 91234-5678" },
+      { name: "Carlos Eduardo", phone: "(21) 99876-5432" },
+      { name: "Mariana Costa", phone: "(31) 98765-4321" },
+      { name: "João Pedro", phone: "(41) 93456-1234" },
+      { name: "Fernanda Souza", phone: "(51) 91234-9876" },
+      { name: "Lucas Alves", phone: "(61) 92345-6789" },
+      { name: "Daniel Knaip", phone: "(27) 99929-6301" },
+      { name: "Beatriz Oliveira", phone: "(71) 97654-3210" },
+      { name: "Rafael Lima", phone: "(81) 96543-2109" }
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const resultsList = document.getElementById('resultsList');
+    const noResults = document.getElementById('noResults');
+
+    function searchContacts() {
+      const query = searchInput.value.toLowerCase().trim();
+      resultsList.innerHTML = '';
+      let foundAny = false;
+
+      // Search contacts using a for loop
+      for (let i = 0; i < contacts.length; i++) {
+        const contactName = contacts[i].name.toLowerCase();
+        if (contactName.includes(query) && query !== '') {
+          const li = document.createElement('li');
+          li.textContent = `${contacts[i].name} - ${contacts[i].phone}`;
+          resultsList.appendChild(li);
+          foundAny = true;
+        }
+      }
+
+      // Show no results message if nothing matched
+      if (!foundAny && query !== '') {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+
+    searchInput.addEventListener('input', searchContacts);
+  </script>
+</body>
+</html>
+
